@@ -32,6 +32,29 @@ This project implements a mini ETL data pipeline that extracts weather data from
 - `automation.py` runs the entire ETL pipeline sequentially.  
 - Airflow DAG (`etl_dag.py`) provided for orchestration with daily scheduling.
 
+##  Project Structure
+```
+├── data/
+│   ├── processed/         # Processed parquet data
+│   └── raw/               # Raw API responses in JSON
+│
+├── reports/               # Analytics reports
+│
+├── src/
+│   ├── analytics.py       # Run SQL analytics & save report
+│   ├── automation.py      # ETL runner in one file
+│   ├── config.py          # Env variables (API key, DB configs)
+│   ├── etl_dag.py         # Airflow DAG
+│   ├── load.py            # Loading data into PostgreSQL
+│   ├── extract.py         # Extracting data from API
+│   └── transform.py       # Clean & enrich data   
+│
+├── .env                   # API keys & DB credentials
+├── docker-compose.yml     # PostgreSQL container setup
+├── dump.sql               # SQL dump for initialize or restore PostgreSQL DB schema
+├── README.md
+└── requirements.txt       # Python dependencies for the project
+```
 
 ## Setup & Run Instructions
 
