@@ -1,8 +1,8 @@
+from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD, BASE_DIR
 import os
-from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
-
 import pandas as pd
 import psycopg2
+from datetime import date
 
 def connect_db():
     conn = psycopg2.connect(
@@ -23,9 +23,8 @@ def create_database():
 
     try:
         cursor.execute('CREATE DATABASE "test-db";')
-        print("db created successfully.")
     except psycopg2.errors.DuplicateDatabase:
-        print("db already exists.")
+        pass
 
     cursor.close()
     conn.close()
@@ -50,12 +49,10 @@ def create_table():
     )
     """)
 
-    conn.commit()
-
     cursor.close()
     conn.close()
 
-def load(file):
+def load_process(file):
     conn, cursor = connect_db()
 
     df = pd.read_parquet(file)
@@ -74,11 +71,21 @@ def load(file):
         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """, values)
 
-    conn.commit()
     cursor.close()
     conn.close()
 
-if __name__ == "__main__":
+
+def generate_file_path():
+    path = os.path.join(BASE_DIR, 'data', 'processed', date.today().strftime("%Y-%m-%d"), 'data.parquet')
+    return path
+
+
+def loading_stage():
     create_database()
     create_table()
-    load('data.parquet')
+
+    load_process( generate_file_path() )
+
+
+if __name__ == "__main__":
+    loading_stage()

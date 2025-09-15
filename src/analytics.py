@@ -69,6 +69,10 @@ def save_report(result):
         json.dump(result, f, indent=2, default=str)
 
 
+def analysing_stage():
+    return save_report(analyse())
+
+
 if __name__ == '__main__':
-    save_report( analyse() )
+    analysing_stage()
 

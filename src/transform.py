@@ -53,6 +53,13 @@ def to_parquet (dataframe):
 
     return dataframe.to_parquet(output_file)
 
+def generate_file_path():
+    path = os.path.join(BASE_DIR, 'data', 'raw', date.today().strftime("%Y-%m-%d"), 'response.json')
+    return path
+
+def transforming_stage():
+    return to_parquet( transform( generate_file_path() ) )
+
 
 if __name__ == '__main__':
-    to_parquet(transform('response.json'))
+    transforming_stage()
