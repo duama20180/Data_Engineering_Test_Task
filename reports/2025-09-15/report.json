@@ -1,0 +1,81 @@
+{
+  "unique date of observation per city": [
+    {
+      "city": "Kyiv",
+      "observe_date": 1
+    },
+    {
+      "city": "Lviv",
+      "observe_date": 1
+    },
+    {
+      "city": "Vinnytsia",
+      "observe_date": 3
+    }
+  ],
+  "average weather conditions": [
+    {
+      "city": "Vinnytsia",
+      "average_temp_celsius": 15.59,
+      "average_humidity": 72.17,
+      "average_pressure": 1021.17,
+      "average_feels_like_celsius": 15.08
+    },
+    {
+      "city": "Lviv",
+      "average_temp_celsius": 14.37,
+      "average_humidity": 96.0,
+      "average_pressure": 1016.0,
+      "average_feels_like_celsius": 14.37
+    },
+    {
+      "city": "Kyiv",
+      "average_temp_celsius": 15.59,
+      "average_humidity": 52.0,
+      "average_pressure": 1023.0,
+      "average_feels_like_celsius": 14.56
+    }
+  ],
+  "length of sun time per city per day": [
+    {
+      "city": "Vinnytsia",
+      "observe_date": "2025-09-13",
+      "sun_time_in_hours": "12:45"
+    },
+    {
+      "city": "Kyiv",
+      "observe_date": "2025-09-14",
+      "sun_time_in_hours": "12:43"
+    },
+    {
+      "city": "Lviv",
+      "observe_date": "2025-09-14",
+      "sun_time_in_hours": "12:42"
+    },
+    {
+      "city": "Vinnytsia",
+      "observe_date": "2025-09-14",
+      "sun_time_in_hours": "12:41"
+    },
+    {
+      "city": "Vinnytsia",
+      "observe_date": "2025-09-15",
+      "sun_time_in_hours": "12:38"
+    },
+    {
+      "city": "Vinnytsia",
+      "observe_date": "2025-09-15",
+      "sun_time_in_hours": "12:38"
+    },
+    {
+      "city": "Vinnytsia",
+      "observe_date": "2025-09-15",
+      "sun_time_in_hours": "12:38"
+    },
+    {
+      "city": "Vinnytsia",
+      "observe_date": "2025-09-15",
+      "sun_time_in_hours": "12:38"
+    }
+  ]
+}
