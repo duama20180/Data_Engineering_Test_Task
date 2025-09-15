@@ -2,6 +2,7 @@
 
 This project implements a mini ETL data pipeline that extracts weather data from the OpenWeatherMap API, processes and enriches the data, loads it into a PostgreSQL database, and generates basic analytics reports in JSON format.
 
+## Description Of The Implementation Steps
 ### 1. Data Acquisition
 - Public REST API used: OpenWeatherMap  
 - API called with latitude, longitude, and API key.  
