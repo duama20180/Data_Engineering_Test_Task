@@ -33,6 +33,7 @@ This project implements a mini ETL data pipeline that extracts weather data from
 - `automation.py` runs the entire ETL pipeline sequentially.  
 - Airflow DAG (`etl_dag.py`) provided for orchestration with daily scheduling.
 
+[detailed_description_of_the_implementation_steps.md](https://github.com/duama20180/Data_Engineering_Test_Task/blob/main/detailed_description_of_the_implementation_steps.md)
 ##  Project Structure
 ```
 ├── data/
