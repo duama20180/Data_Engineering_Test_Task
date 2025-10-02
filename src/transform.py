@@ -10,7 +10,7 @@ def transform(path_file):
         with open(path_file, 'r') as f:
             raw_data = json.load(f)
     except Exception as e:
-        print(f"Error {e}")
+        raise RuntimeError (f"Transform stage failed to read input {e}") from e
 
     df = pd.json_normalize(raw_data)
 
@@ -39,8 +39,7 @@ def transform(path_file):
         return df
 
     except Exception as e:
-        print(f"Error {e}")
-        return None
+        raise RuntimeError(f"❌ Transform stage failed during processing: {e}") from e
 
 
 def to_parquet (dataframe):
@@ -51,7 +50,11 @@ def to_parquet (dataframe):
 
     output_file = os.path.join(output_path, 'data.parquet')
 
-    return dataframe.to_parquet(output_file)
+    try:
+        dataframe.to_parquet(output_file)
+    except Exception as e:
+        raise RuntimeError(f"Failed to save parquet: {e}") from e
+    return output_file
 
 def generate_file_path():
     path = os.path.join(BASE_DIR, 'data', 'raw', date.today().strftime("%Y-%m-%d"), 'response.json')

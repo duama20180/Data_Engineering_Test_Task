@@ -45,7 +45,8 @@ def create_table():
         humidity INT,
         wind_speed NUMERIC(5,2),
         sunrise TIME,
-        sunset TIME
+        sunset TIME,
+        PRIMARY KEY (observe_date, city)
     )
     """)
 
@@ -58,17 +59,18 @@ def load_process(file):
     df = pd.read_parquet(file)
 
     values = [(
-        row ['date'], row['name'], row['temp'], row['temp_Celsius'],row['feels_like'],
-        row['feels_like_Celsius'],row['pressure'], row['humidity'], row['wind_speed'],
+        row['date'], row['name'], row['temp'], row['temp_Celsius'], row['feels_like'],
+        row['feels_like_Celsius'], row['pressure'], row['humidity'], row['wind_speed'],
         row['sunrise'], row['sunset']
     ) for _, row in df.iterrows()]
 
     cursor.executemany("""
         INSERT INTO weather (
-            observe_date, city,temp, temp_Celsius,
+            observe_date, city, temp, temp_Celsius,
             feels_like, feels_like_Celsius,
             pressure, humidity, wind_speed, sunrise, sunset
         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        ON CONFLICT (observe_date, city) DO NOTHING
     """, values)
 
     cursor.close()
@@ -81,7 +83,6 @@ def generate_file_path():
 
 
 def loading_stage():
-    create_database()
     create_table()
 
     load_process( generate_file_path() )

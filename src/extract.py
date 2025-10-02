@@ -15,12 +15,13 @@ def extract_data():
         response.raise_for_status()
         data = response.json()
     except Exception as e:
-        print(f"error: {e}")
-        return None
+        raise RuntimeError(f"Extract stage failed: {e}") from e
 
-
-    with open(file, mode='w', encoding='utf-8') as f:
-        json.dump(data, f, indent=4)
+    try:
+        with open(file, mode='w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4)
+    except Exception as e:
+        raise RuntimeError(f"Failed to save extracted data: {e}") from e
 
     return file
 
