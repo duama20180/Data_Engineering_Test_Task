@@ -1,3 +1,4 @@
+from zoneinfo import ZoneInfo
 import pandas as pd
 import json
 from config import BASE_DIR
@@ -31,10 +32,12 @@ def transform(path_file):
         df.insert(3, "temp_Celsius", (df['temp']-273.15).round(2), True)
         df.insert(5, "feels_like_Celsius", (df['feels_like'] - 273.15).round(2), True)
 
-        #convert sunrise and sunset from unix timestamp to a hh:mm and add 3 hours to adjust to a local Ukraine time
-        df['sunrise'] = pd.to_datetime( df['sunrise'] + 3 * 3600, unit='s').dt.strftime('%H:%M')
-        df['sunset'] = pd.to_datetime(df['sunset'] + 3 * 3600, unit='s').dt.strftime('%H:%M')
-        df['date'] = pd.to_datetime(df['date'] + 3 * 3600, unit='s').dt.strftime('%Y-%m-%d')
+        tz = ZoneInfo("Europe/Kyiv")
+
+        #convert sunrise and sunset from unix timestamp to a hh:mm to a local Ukraine time
+        df['sunrise'] = pd.to_datetime(df['sunrise'], unit='s').dt.tz_localize("UTC").dt.tz_convert(tz).dt.strftime('%H:%M')
+        df['sunset']  = pd.to_datetime(df['sunset'], unit='s').dt.tz_localize("UTC").dt.tz_convert(tz).dt.strftime('%H:%M')
+        df['date']    = pd.to_datetime(df['date'],   unit='s').dt.tz_localize("UTC").dt.tz_convert(tz).dt.strftime('%Y-%m-%d')
 
         return df
 
